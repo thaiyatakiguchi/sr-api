@@ -1,0 +1,213 @@
+{
+    "env": {
+        "node": true,
+        "es6": true,
+        "mocha": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "ecmaFeatures": {
+            "arrowFunctions": true,
+            "blockBindings": true,
+            "classes": true,
+            "defaultParams": true,
+            "destructuring": true,
+            "experimentalObjectRestSpread": true,
+            "forOf": true,
+            "generators": true,
+            "modules": true,
+            "objectLiteralComputedProperties": true,
+            "objectLiteralDuplicateProperties": false,
+            "objectLiteralShorthandMethods": true,
+            "objectLiteralShorthandProperties": true,
+            "spread": true,
+            "superInFunctions": true,
+            "templateStrings": true,
+            "jsx": true
+        }
+    },
+    "rules": {
+        /*************************************************
+        * Possible errors - http://eslint.org/docs/rules *
+        **************************************************/
+
+        "comma-dangle": ["error", "never"],
+        "no-cond-assign": ["error", "always"],
+        "no-constant-condition": "error",
+        "no-dupe-keys": "error",
+        "no-duplicate-case": "error",
+        "no-empty": "error",
+        "no-empty-character-class": "error",
+        "no-ex-assign": "error",
+        "no-extra-boolean-cast": "error",
+        "no-extra-semi": "error",
+        "no-func-assign": "error",
+        "no-inner-declarations": "error",
+        "no-invalid-regexp": "error",
+        "no-irregular-whitespace": "error",
+        "no-negated-in-lhs": "error",
+        "no-obj-calls": "error",
+        "no-regex-spaces": "error",
+        "no-sparse-arrays": "error",
+        "no-unreachable": "error",
+        "use-isnan": "error",
+        "valid-typeof": "error",
+
+        /************************************************
+        * Best practices - http://eslint.org/docs/rules *
+        *************************************************/
+
+        "array-callback-return": "error",
+        "complexity": ["error", 13],
+        /** "consistent-return": "error", */
+        /** "curly": ["error", "multi-line"], */
+        "curly": ["error", "all"],
+        "default-case": "error",
+        /** "dot-location": "error", */
+        "dot-location": ["error", "property"],
+        "dot-notation": ["error"],
+        "eqeqeq": "error",
+        "no-alert": "error",
+        "no-caller": "error",
+        "no-case-declarations": "error",
+        "no-debugger": "error",
+        "no-div-regex": "error",
+        "no-else-return": "error",
+        "no-empty-pattern": "error",
+        "no-eq-null": "error",
+        "no-eval": "error",
+        "no-extend-native": "error",
+        "no-extra-bind": "error",
+        "no-extra-parens": ["error", "functions"],
+        "no-fallthrough": "error",
+        "no-floating-decimal": "error",
+        "no-implicit-coercion": "error",
+        "no-implied-eval": "error",
+        "no-lone-blocks": "error",
+        "no-loop-func": "error",
+        "no-multi-spaces": "error",
+        "no-multi-str": "error",
+        "no-native-reassign": "error",
+        "no-new": "error",
+        "no-new-func": "error",
+        "no-new-wrappers": "error",
+        "no-octal": "error",
+        "no-octal-escape": "error",
+        "no-proto": "error",
+        "no-redeclare": "error",
+        "no-return-assign": "error",
+        "no-script-url": "error",
+        "no-self-assign": "error",
+        "no-self-compare": "error",
+        "no-sequences": "error",
+        "no-throw-literal": "error",
+        "no-unmodified-loop-condition": "error",
+        "no-unused-expressions": "error",
+        "no-useless-call": "error",
+        "no-useless-concat": "error",
+        "no-useless-escape": "error",
+        "no-with": "error",
+        "radix": "error",
+        "wrap-iife": ["error", "any"],
+        "yoda": "error",
+
+        /*********************************************
+        * Strict Mode - http://eslint.org/docs/rules *
+        **********************************************/
+        "strict": ["error", "global"],
+    
+
+        /*******************************************
+        * Variables - http://eslint.org/docs/rules *
+        ********************************************/
+
+        "no-delete-var": "error",
+        "no-shadow": "off",
+        "no-shadow-restricted-names": "error",
+        "no-undef": "error",
+        "no-unused-vars": "error",
+        /** "no-use-before-define": ["error", "nofunc"], */
+        "no-use-before-define": ["off", { "functions": true, "classes": true}],
+
+        /******************************************************
+        * Node.js and CommonJS - http://eslint.org/docs/rules *
+        *******************************************************/
+
+        "handle-callback-err": "error",
+        "no-path-concat": "error",
+
+        /**************************************************
+        * Stylistic Issues - http://eslint.org/docs/rules *
+        ***************************************************/
+
+        "array-bracket-spacing": ["error", "never"],
+        "block-spacing": ["error", "always"],
+        "brace-style": ["error", "1tbs", {"allowSingleLine": true}],
+        "camelcase": 0,
+        /** "camelcase": ["error", {"properties": "never"}], */
+        "comma-spacing": ["error", {"before": false, "after": true}],
+        "comma-style": ["error", "last"],
+        "computed-property-spacing": ["error", "never"],
+        "eol-last": "error",
+        /** "indent": ["error", 2], */
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "key-spacing": ["error", {"beforeColon": false, "afterColon": true}],
+        "keyword-spacing": "error",
+        "linebreak-style": ["error", "unix"],
+        "max-depth": ["error", 6],
+        "max-len": ["error", 300, 4],
+        "max-params": ["error", 5],
+        "max-statements": ["error", 30],
+        /**"new-cap": ["error", {
+                "properties": true
+            }], */
+        "new-parens": "error",
+        "no-lonely-if": "error",
+        "no-multiple-empty-lines": ["error", {"max": 2}],
+        "no-nested-ternary": "error",
+        "no-new-object": "error",
+        "no-process-exit": "off",
+        "no-spaced-func": "error",
+        "no-trailing-spaces": "error",
+        "no-underscore-dangle": "off",
+        "no-unneeded-ternary": "error",
+        "no-whitespace-before-property": "error",
+        "object-curly-spacing": ["error", "always"],
+        "operator-assignment": ["error", "always"],
+        "padded-blocks": ["error", "never"],
+        "quote-props": ["error", "as-needed"],
+        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+        "semi": ["error", "always"],
+        "semi-spacing": ["error", {"before": false, "after": true}],
+        "space-before-blocks": "error",
+        "space-before-function-paren": ["error", "always"],
+        "space-in-parens": "error",
+        "space-infix-ops": "error",
+        "space-unary-ops": ["error", {"words": true, "nonwords": false}],
+        "spaced-comment": ["error", "always"],
+
+        /*************************************
+        * ES6 - http://eslint.org/docs/rules *
+        **************************************/
+
+        "arrow-parens": "error",
+        "arrow-spacing": "error",
+        "constructor-super": "error",
+        "generator-star-spacing": ["error", "after"],
+        "no-class-assign": "error",
+        "no-const-assign": "error",
+        "no-dupe-class-members": "error",
+        "no-duplicate-imports": "error",
+        "no-new-symbol": "error",
+        "no-this-before-super": "error",
+        "no-useless-constructor": "error",
+        "no-var": "error",
+        "object-shorthand": ["error", "consistent"],
+        "prefer-arrow-callback": "error",
+        /** "prefer-const": "error", */
+        "prefer-reflect": "off",
+        /** "prefer-rest-params": "error", */
+        "prefer-spread": "error",
+        "require-yield": "error"
+    }
+}

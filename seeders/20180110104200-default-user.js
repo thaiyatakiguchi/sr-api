@@ -12,8 +12,8 @@ module.exports = {
             ageRange: '21',
             isAdmin: true,
             isDeleted: false,
-            createdAt: moment().format(),
-            updatedAt: moment().format()
+            createdAt: moment().format('YYYY-MM-DD hh:mm:ss'),
+            updatedAt: moment().format('YYYY-MM-DD hh:mm:ss')
         }], {});
     },
 

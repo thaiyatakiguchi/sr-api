@@ -45,7 +45,7 @@ const getById = async (req, res, next) => {
             where: { id: req.params.id },
             include: [{
                 model: Model.product,
-                attributes: ['id', 'asin', 'name', 'description', 'imageUrl', 'price'],
+                attributes: ['id', 'asin', 'title', 'description', 'imageUrl', 'price'],
                 through: { attributes: [] }
             }]
         });
@@ -78,6 +78,7 @@ const getProduct = async (req, res, next) => {
         let page = parseInt(req.query.page, 10) || 1;
         let pageSize = parseInt(req.query.pageSize, 10) || 10;
         let { rows, count } = await Model.product.findAndCountAll({
+            subQuery: false,
             limit: pageSize,
             offset: (page - 1) * pageSize,
             order: [[orderBy, orderDir]],

@@ -2,27 +2,24 @@
 
 const httpStatus = require('http-status');
 const Model = require('../models');
-const { concatAgeRange, signToken } = require('../utilities');
-const { fbLogin, fbGraph } = require('../services/auth');
+const { signToken } = require('../utilities');
+const { fbGraph } = require('../services/auth');
 
 const login = async (req, res, next) => {
     try {
-        let fbGraphApiUrl = `/me?fields=${process.env.FB_LOGIN_FIELDS}`;
-        let fbAccessToken = await fbLogin({
-            code: req.body.code,
-            client_id: process.env.FB_ID,
-            client_secret: process.env.FB_SECRET,
-            redirect_uri: req.body.redirectUri
+        let user = await Model.user.findOne({
+            attributes: ['id', 'fbId', 'fbToken', 'name', 'email', 'imageUrl', 'gender', 'ageRange'],
+            where: { email: req.body.email }
         });
-        let profile = await fbGraph(fbAccessToken, fbGraphApiUrl);
-        let user = await Model.user.findOne({ where: { email: profile.email } });
         if (!user) {
             user = await Model.user.create({
-                name: profile.name,
-                email: profile.email,
-                imageUrl: profile.picture.data.url,
-                gender: profile.gender,
-                ageRange: concatAgeRange(profile.age_range)
+                fbId: req.body.fbId,
+                fbToken: req.body.fbToken,
+                name: req.body.name,
+                email: req.body.email,
+                imageUrl: req.body.url,
+                gender: req.body.gender,
+                ageRange: req.body.age_range
             });
         }
         let accessToken = await signToken(user);
@@ -32,6 +29,21 @@ const login = async (req, res, next) => {
     }
 };
 
+const getFriend = async (req, res, next) => {
+    try {
+        let user = await Model.user.findOne({
+            attributes: ['id', 'fbId', 'fbToken', 'name', 'email', 'imageUrl', 'gender', 'ageRange'],
+            where: { id: req.user.id }
+        });
+        let getFriendUrl = `/${user.fbId}/friends`;
+        let friends = await fbGraph(user.fbToken, getFriendUrl);
+        res.status(httpStatus.OK).json({ message: `Successfully retrieved user's friends from facebook`, friends: friends.data });
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
-    login
+    login,
+    getFriend
 };

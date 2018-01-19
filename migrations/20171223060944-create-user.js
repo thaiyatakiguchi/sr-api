@@ -9,6 +9,12 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            fbId: {
+                type: Sequelize.STRING
+            },
+            fbToken: {
+                type: Sequelize.TEXT
+            },
             name: {
                 type: Sequelize.STRING
             },

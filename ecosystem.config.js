@@ -11,20 +11,13 @@ module.exports = {
 
     deploy: {
         dev: {
-            user: 'node',
-            host: '212.83.163.1',
-            ref: 'origin/master',
-            repo: 'git@github.com:repo.git',
-            path: '/var/www/development',
-            'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env dev',
-        },
-        production: {
-            user: 'node',
-            host: '212.83.163.1',
-            ref: 'origin/master',
-            repo: 'git@github.com:repo.git',
-            path: '/var/www/production',
-            'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production'
+            user: 'root',
+            key: '~/.ssh/manna_rsa',
+            host: '128.199.251.234',
+            ref: 'origin/develop',
+            repo: 'git@github.com:thestrayed/sr-api.git',
+            path: '/app',
+            'post-deploy': 'npm i --production && node_modules/.bin/sequelize db:migrate && pm2 reload ecosystem.config.js'
         }
     }
 };

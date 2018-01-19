@@ -2,6 +2,8 @@
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
+        fbId: DataTypes.STRING,
+        fbToken: DataTypes.TEXT,
         name: DataTypes.STRING,
         email: DataTypes.STRING,
         imageUrl: DataTypes.STRING,

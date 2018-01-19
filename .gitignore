@@ -1,4 +1,4 @@
 node_modules
 *.DS_STORE
 .env
-ecosystem.comfig.js
+ecosystem.config.js

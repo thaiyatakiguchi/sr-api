@@ -6,7 +6,7 @@ require('dotenv').config();
 const morgan = require('morgan');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { activityLogger, errorLog, errorHandler } = require('./middlewares');
+const { authHandler, activityLogger, errorLog, errorHandler } = require('./middlewares');
 
 const app = express();
 
@@ -21,7 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/auth', require('./routes/auth'));
 
-// app.use(authHandler);
+app.use(authHandler);
+
+app.use('/user', require('./routes/user'));
 
 app.use(activityLogger);
 

@@ -2,9 +2,9 @@
 
 const express = require('express');
 const router = new express.Router();
-const auth = require('../controllers/auth');
+const { login } = require('../controllers/auth');
 
 router.route('/facebook')
-    .post(auth.login);
+    .post(login);
 
 module.exports = router;

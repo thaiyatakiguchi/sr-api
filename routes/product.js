@@ -5,7 +5,7 @@ const uuidv1 = require('uuid/v1');
 const multer = require('multer');
 const express = require('express');
 const router = new express.Router();
-const product = require('../controllers/product');
+const { create, update, getById, getAll, importProduct, addToCart, buyProduct, shareProduct, askFriend, suggestFriend, requstFriend } = require('../controllers/product');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, '..', 'files'));
@@ -17,32 +17,32 @@ const storage = multer.diskStorage({
 });
 
 router.route('/')
-    .get(product.getAll)
-    .post(product.create);
+    .get(getAll)
+    .post(create);
 
 router.route('/import')
-    .post(multer({ storage: storage }).single('file'), product.importProduct);
+    .post(multer({ storage: storage }).single('file'), importProduct);
 
 router.route('/:id')
-    .get(product.getById)
-    .put(product.update);
+    .get(getById)
+    .put(update);
 
 router.route('/:id/cart')
-    .post(product.addToCart);
+    .post(addToCart);
 
 router.route('/:id/order')
-    .post(product.buyProduct);
+    .post(buyProduct);
 
 router.route('/:id/share')
-    .post(product.shareProduct);
+    .post(shareProduct);
 
 router.route('/:id/ask')
-    .post(product.askFriend);
+    .post(askFriend);
 
 router.route('/:id/suggest')
-    .post(product.suggestFriend);
+    .post(suggestFriend);
 
 router.route('/:id/request')
-    .post(product.requstFriend);
+    .post(requstFriend);
 
 module.exports = router;

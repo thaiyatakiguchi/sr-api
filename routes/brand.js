@@ -2,17 +2,17 @@
 
 const express = require('express');
 const router = new express.Router();
-const brand = require('../controllers/brand');
+const { create, update, getById, getAll, getProduct } = require('../controllers/brand');
 
 router.route('/')
-    .get(brand.getAll)
-    .post(brand.create);
+    .get(getAll)
+    .post(create);
 
 router.route('/:id')
-    .get(brand.getById)
-    .put(brand.update);
+    .get(getById)
+    .put(update);
 
 router.route('/:id/product')
-    .get(brand.getProduct);
+    .get(getProduct);
 
 module.exports = router;

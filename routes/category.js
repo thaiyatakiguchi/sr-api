@@ -2,17 +2,17 @@
 
 const express = require('express');
 const router = new express.Router();
-const category = require('../controllers/category');
+const { create, update, getById, getAll, getProduct } = require('../controllers/category');
 
 router.route('/')
-    .get(category.getAll)
-    .post(category.create);
+    .get(getAll)
+    .post(create);
 
 router.route('/:id')
-    .get(category.getById)
-    .put(category.update);
+    .get(getById)
+    .put(update);
 
 router.route('/:id/product')
-    .get(category.getProduct);
+    .get(getProduct);
 
 module.exports = router;

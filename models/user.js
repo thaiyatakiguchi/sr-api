@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         deletedAt: DataTypes.DATE
     });
     User.associate = (models) => {
+        User.hasMany(models.cart, { foreignKey: 'cartId' });
         User.belongsTo(models.activity, { foreignKey: 'userId' });
         User.belongsTo(models.activity, { foreignKey: 'friendId' });
     };

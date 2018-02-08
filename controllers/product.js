@@ -141,8 +141,16 @@ const importProduct = async (req, res, next) => {
     }
 };
 
-const addToCart = async (req, res, next) => {
+const askFriend = async (req, res, next) => {
     try {
+        let friend = await Model.user.findOne({
+            attributes: ['id'],
+            where: { fbId: req.body.friendFbId }
+        });
+        if (!friend) {
+            return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
+        }
+        await Model.activity.create({ userId: req.user.id, activityTypeId: 5, productId: req.params.id, friendId: friend.id });
         res.status(httpStatus.OK).json();
     } catch (err) {
         next(err);
@@ -157,24 +165,16 @@ const buyProduct = async (req, res, next) => {
     }
 };
 
-const shareProduct = async (req, res, next) => {
-    try {
-        res.status(httpStatus.OK).json();
-    } catch (err) {
-        next(err);
-    }
-};
-
-const askFriend = async (req, res, next) => {
-    try {
-        res.status(httpStatus.OK).json();
-    } catch (err) {
-        next(err);
-    }
-};
-
 const suggestFriend = async (req, res, next) => {
     try {
+        let friend = await Model.user.findOne({
+            attributes: ['id'],
+            where: { fbId: req.body.friendFbId }
+        });
+        if (!friend) {
+            return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
+        }
+        await Model.activity.create({ userId: req.user.id, activityTypeId: 6, productId: req.params.id, friendId: friend.id });
         res.status(httpStatus.OK).json();
     } catch (err) {
         next(err);
@@ -183,6 +183,14 @@ const suggestFriend = async (req, res, next) => {
 
 const requstFriend = async (req, res, next) => {
     try {
+        let friend = await Model.user.findOne({
+            attributes: ['id'],
+            where: { fbId: req.body.friendFbId }
+        });
+        if (!friend) {
+            return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
+        }
+        await Model.activity.create({ userId: req.user.id, activityTypeId: 7, productId: req.params.id, friendId: friend.id });
         res.status(httpStatus.OK).json();
     } catch (err) {
         next(err);
@@ -195,10 +203,8 @@ module.exports = {
     getById,
     update,
     importProduct,
-    addToCart,
-    buyProduct,
-    shareProduct,
     askFriend,
+    buyProduct,
     suggestFriend,
     requstFriend
 };

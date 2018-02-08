@@ -5,7 +5,7 @@ const uuidv1 = require('uuid/v1');
 const multer = require('multer');
 const express = require('express');
 const router = new express.Router();
-const { create, update, getById, getAll, importProduct, addToCart, buyProduct, shareProduct, askFriend, suggestFriend, requstFriend } = require('../controllers/product');
+const { create, update, getById, getAll, importProduct, askFriend, buyProduct, suggestFriend, requstFriend } = require('../controllers/product');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, '..', 'files'));
@@ -20,21 +20,15 @@ router.route('/')
     .get(getAll)
     .post(create);
 
+router.route('/buy')
+    .post(buyProduct);
+
 router.route('/import')
     .post(multer({ storage: storage }).single('file'), importProduct);
 
 router.route('/:id')
     .get(getById)
     .put(update);
-
-router.route('/:id/cart')
-    .post(addToCart);
-
-router.route('/:id/order')
-    .post(buyProduct);
-
-router.route('/:id/share')
-    .post(shareProduct);
 
 router.route('/:id/ask')
     .post(askFriend);

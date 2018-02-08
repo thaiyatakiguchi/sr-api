@@ -2,39 +2,29 @@
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('product', {
+        return queryInterface.createTable('cartItems', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            asin: {
-                type: Sequelize.STRING
-            },
-            title: {
-                type: Sequelize.TEXT
-            },
-            description: {
-                type: Sequelize.TEXT
-            },
-            imageUrl: {
-                type: Sequelize.STRING
-            },
-            price: {
-                type: Sequelize.FLOAT,
-                defaultValue: 0.00
-            },
-            brandId: {
+            cartId: {
                 type: Sequelize.INTEGER,
                 references: {
-                    model: 'brand',
+                    model: 'cart',
                     key: 'id'
                 }
             },
-            isDeleted: {
-                type: Sequelize.BOOLEAN,
-                defaultValue: 0
+            productId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: 'product',
+                    key: 'id'
+                }
+            },
+            quantity: {
+                type: Sequelize.FLOAT
             },
             createdAt: {
                 allowNull: false,
@@ -47,6 +37,6 @@ module.exports = {
         });
     },
     down: (queryInterface) => {
-        return queryInterface.dropTable('product');
+        return queryInterface.dropTable('cartItems');
     }
 };

@@ -28,6 +28,7 @@ app.use('/user', require('./routes/user'));
 app.use(activityLogger);
 
 app.use('/brand', require('./routes/brand'));
+app.use('/cart', require('./routes/cart'));
 app.use('/category', require('./routes/category'));
 app.use('/product', require('./routes/product'));
 
@@ -42,6 +43,5 @@ server.setTimeout(300000);
 server.listen(app.get('port'), () => {
     console.log(`listening on *:${app.get('port')}`);
 });
-
 
 module.exports = server;

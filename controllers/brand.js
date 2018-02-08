@@ -31,7 +31,7 @@ const getAll = async (req, res, next) => {
         if (!rows.length) {
             return res.status(httpStatus.NOT_FOUND).json();
         }
-        res.status(httpStatus.OK).json({ brands: rows, pagination: { page: page, pageSize: pageSize, rowCount: count, pageCount: count / pageSize } });
+        res.status(httpStatus.OK).json({ brands: rows, pagination: { page: page, pageSize: pageSize, rowCount: count, pageCount: Math.ceil(count / pageSize) } });
     } catch (err) {
         next(err);
     }

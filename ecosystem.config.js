@@ -13,7 +13,7 @@ module.exports = {
             DB_PASSWORD: '02icY3LSUi3QHilf',
             DB_NAME: 'sr',
             DB_HOSTNAME: 'localhost',
-            PORT: '3000',
+            PORT: '3001',
             FB_VERSION: 'v2.11',
             FB_ID: '180374555897705',
             FB_SECRET: '2aa6845b51e982f7f07ee8f61c60e45e',

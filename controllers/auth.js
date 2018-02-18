@@ -9,7 +9,7 @@ const login = async (req, res, next) => {
     try {
         let user = await Model.user.findOne({
             attributes: ['id', 'fbId', 'fbToken', 'name', 'email', 'imageUrl', 'gender', 'ageRange'],
-            where: { email: req.body.email }
+            where: { fbId: req.body.fbId }
         });
         if (!user) {
             user = await Model.user.create({
@@ -20,6 +20,10 @@ const login = async (req, res, next) => {
                 imageUrl: req.body.url,
                 gender: req.body.gender,
                 ageRange: req.body.age_range
+            });
+        } else {
+            user = await user.update({
+                fbToken: req.body.fbToken
             });
         }
         let accessToken = await signToken(user);

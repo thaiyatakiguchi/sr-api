@@ -52,30 +52,33 @@ const getCart = async (req, res, next) => {
 
 const addToFriendCart = async (req, res, next) => {
     try {
-        let friend = await Model.user.findOne({
-            attributes: ['id'],
-            where: {
-                fbId: req.body.friendFbId
+        let friends = req.body.friendsFbId;
+        friends.forEach(async (friend) => {
+            let f = await Model.user.findOne({
+                attributes: ['id'],
+                where: {
+                    fbId: friend
+                }
+            });
+            if (!f) {
+                return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
             }
-        });
-        if (!friend) {
-            return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
-        }
-        let friendCart = await Model.cart.findOne({
-            attributes: ['id'],
-            where: {
-                userId: friend.id,
-                isCheckedout: false
+            let friendCart = await Model.cart.findOne({
+                attributes: ['id'],
+                where: {
+                    userId: f.id,
+                    isCheckedout: false
+                }
+            });
+            if (!friendCart) {
+                friendCart = await Model.cart.create({ userId: f.id });
             }
+            await Promise.all([
+                Model.cartItems.create({ cartId: friendCart.id, productId: req.body.productId, quantity: req.body.quantity }),
+                Model.activity.create({ userId: req.user.id, activityTypeId: 8, productId: req.body.productId, friendId: f.id })
+            ]);
+            await Model.cartItems.create({ cartId: friendCart.id, productId: req.body.productId, quantity: req.body.quantity });
         });
-        if (!friendCart) {
-            friendCart = await Model.cart.create({ userId: friend.id });
-        }
-        await Promise.all([
-            Model.cartItems.create({ cartId: friendCart.id, productId: req.body.productId, quantity: req.body.quantity }),
-            Model.activity.create({ userId: req.user.id, activityTypeId: 8, productId: req.body.productId, friendId: friend.id })
-        ]);
-        await Model.cartItems.create({ cartId: friendCart.id, productId: req.body.productId, quantity: req.body.quantity });
         res.status(httpStatus.OK).json({ message: `Successfully added product/products to friend's cart` });
     } catch (err) {
         next(err);

@@ -143,15 +143,18 @@ const importProduct = async (req, res, next) => {
 
 const askFriend = async (req, res, next) => {
     try {
-        let friend = await Model.user.findOne({
-            attributes: ['id'],
-            where: { fbId: req.body.friendFbId }
+        let friends = req.body.friendsFbId;
+        friends.forEach(async (friend) => {
+            let f = await Model.user.findOne({
+                attributes: ['id'],
+                where: { fbId: friend }
+            });
+            if (!f) {
+                return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
+            }
+            await Model.activity.create({ userId: req.user.id, activityTypeId: 5, productId: req.params.id, friendId: f.id });
         });
-        if (!friend) {
-            return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
-        }
-        await Model.activity.create({ userId: req.user.id, activityTypeId: 5, productId: req.params.id, friendId: friend.id });
-        res.status(httpStatus.OK).json();
+        res.status(httpStatus.OK).json({ message: 'Successfully asked product from friends' });
     } catch (err) {
         next(err);
     }
@@ -159,7 +162,20 @@ const askFriend = async (req, res, next) => {
 
 const buyProduct = async (req, res, next) => {
     try {
-        res.status(httpStatus.OK).json();
+        if (req.body.activityTypeId === 9) {
+            let friends = req.body.friendsFbId;
+            friends.forEach(async (friend) => {
+                let f = await Model.user.findOne({
+                    attributes: ['id'],
+                    where: { fbId: friend }
+                });
+                if (!f) {
+                    return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
+                }
+                await Model.activity.create({ userId: req.user.id, activityTypeId: req.body.activityTypeId, productId: req.body.productId, friendId: f.id });
+            });
+        }
+        res.status(httpStatus.OK).json({ message: 'Successfully bought product' });
     } catch (err) {
         next(err);
     }
@@ -167,15 +183,18 @@ const buyProduct = async (req, res, next) => {
 
 const suggestFriend = async (req, res, next) => {
     try {
-        let friend = await Model.user.findOne({
-            attributes: ['id'],
-            where: { fbId: req.body.friendFbId }
+        let friends = req.body.friendsFbId;
+        friends.forEach(async (friend) => {
+            let f = await Model.user.findOne({
+                attributes: ['id'],
+                where: { fbId: friend }
+            });
+            if (!f) {
+                return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
+            }
+            await Model.activity.create({ userId: req.user.id, activityTypeId: 6, productId: req.params.id, friendId: f.id });
         });
-        if (!friend) {
-            return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
-        }
-        await Model.activity.create({ userId: req.user.id, activityTypeId: 6, productId: req.params.id, friendId: friend.id });
-        res.status(httpStatus.OK).json();
+        res.status(httpStatus.OK).json({ message: 'Successfully suggested product to friend' });
     } catch (err) {
         next(err);
     }
@@ -183,15 +202,18 @@ const suggestFriend = async (req, res, next) => {
 
 const requstFriend = async (req, res, next) => {
     try {
-        let friend = await Model.user.findOne({
-            attributes: ['id'],
-            where: { fbId: req.body.friendFbId }
+        let friends = req.body.friendsFbId;
+        friends.forEach(async (friend) => {
+            let f = await Model.user.findOne({
+                attributes: ['id'],
+                where: { fbId: friend }
+            });
+            if (!f) {
+                return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
+            }
+            await Model.activity.create({ userId: req.user.id, activityTypeId: 7, productId: req.params.id, friendId: f.id });
         });
-        if (!friend) {
-            return res.status(httpStatus.NOT_FOUND).json({ message: `friend not found` });
-        }
-        await Model.activity.create({ userId: req.user.id, activityTypeId: 7, productId: req.params.id, friendId: friend.id });
-        res.status(httpStatus.OK).json();
+        res.status(httpStatus.OK).json({ message: 'Successfully requested product from friends' });
     } catch (err) {
         next(err);
     }

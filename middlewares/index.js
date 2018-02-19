@@ -32,9 +32,6 @@ const activityLogger = async (req, res, next) => {
             case 3: // buy [POST]
                 await Model.activity.create({ userId: req.user.id, activityTypeId: req.body.activityTypeId, productId: req.body.productId });
                 break;
-            case 9: // buy for friend [POST]
-                await Model.activity.create({ userId: req.user.id, activityTypeId: req.body.activityTypeId, productId: req.body.productId, friendId: req.body.friendId });
-                break;
             default: // view [GET]
                 if (req.query.activityTypeId) {
                     await Model.activity.create({ userId: req.user.id, activityTypeId: parseInt(req.query.activityTypeId, 10), productId: req.path.split('/')[2] });
